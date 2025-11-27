@@ -20,9 +20,9 @@ Before you install this repository you need to make sure you have the flet and r
 
   Step 3: run this commands: ollama pull llama3.2
 
-  Step 3: launch a terminal in that folder
+  Step 4: launch a terminal in that folder
 
-  Step 4: run the JARVIS file using: python jarvis.py
+  Step 5: run the JARVIS file using: python jarvis.py
           or you can use the one with no memory which won't stay after restart (kind of like a temporary chat) by running: python jarvis-no-memory.py
 
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
