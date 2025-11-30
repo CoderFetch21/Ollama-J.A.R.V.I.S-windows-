@@ -4,11 +4,11 @@ This is code that allows you to run an ollama model (specifically llama3 . 2 how
 
 
 **Before You Install**
-Before you install this repository you need to make sure you have the flet and request python libraries as well as ollama
+Before you install this repository you need to make sure you have the flet and requests python libraries as well as ollama
 
 **OVERVIEW**
 - Pyhton
-- flet and library
+- flet and requests library
 - ollama
 - This github file
 
