@@ -8,7 +8,7 @@ Before you install this repository you need to make sure you have the flet and r
 
 **OVERVIEW**
 - Pyhton
-- flet and request libraries
+- flet and library
 - ollama
 - This github file
 
