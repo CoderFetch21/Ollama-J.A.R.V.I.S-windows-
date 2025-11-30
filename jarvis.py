@@ -54,10 +54,13 @@ def call_model_api(messages):
         "model": MODEL_NAME,
         "messages": messages,
         "stream": False,
+        # you can add more params here if you want, e.g.:
+        # "options": {"temperature": 0.5, "num_predict": 256}
     }
 
     try:
-        resp = requests.post(OLLAMA_URL, json=body, timeout=120)
+        # Long timeout so llama3.2 can handle heavy conversations
+        resp = requests.post(OLLAMA_URL, json=body, timeout=300)
         resp.raise_for_status()
         data = resp.json()
 
@@ -202,8 +205,9 @@ def main(page: ft.Page):
         send_button.disabled = True
         page.update()
 
-        # Call local Ollama
-        reply = call_model_api(conversation)
+        # For your experiment you want full history:
+        history_for_model = conversation  # send entire list
+        reply = call_model_api(history_for_model)
 
         # Update history, save, and show assistant reply
         conversation.append({"role": "assistant", "content": reply})
