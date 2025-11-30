@@ -1,10 +1,11 @@
-import flet as ft
+# -*- coding: utf-8 -*-
+
 import requests
+import flet as ft
 
 # ===================== OLLAMA CONFIG =====================
 
-# If running Ollama on the same machine:
-#   ollama serve        # usually auto-starts when you run any ollama command
+# Make sure Ollama is running and you have:
 #   ollama pull llama3.2
 OLLAMA_URL = "http://localhost:11434/api/chat"
 MODEL_NAME = "llama3.2"
@@ -20,10 +21,13 @@ def call_model_api(messages):
         "model": MODEL_NAME,
         "messages": messages,
         "stream": False,
+        # You can add options here if you want, for example:
+        # "options": {"temperature": 0.5, "num_predict": 256}
     }
 
     try:
-        resp = requests.post(OLLAMA_URL, json=body, timeout=120)
+        # Long timeout so llama3.2 can handle heavy conversations
+        resp = requests.post(OLLAMA_URL, json=body, timeout=300)
         resp.raise_for_status()
         data = resp.json()
 
@@ -40,20 +44,20 @@ def call_model_api(messages):
         return "J.A.R.V.I.S.: Local model returned an empty or unexpected response."
 
     except Exception as e:
-        return f"J.A.R.V.I.S.: Error talking to the local model: {e}"
+        return "J.A.R.V.I.S.: Error talking to the local model: {0}".format(e)
 
 
 # ===================== FLET UI (WINDOW) =====================
 
 def main(page: ft.Page):
     # Window / tab setup
-    page.title = "J.A.R.V.I.S."
+    page.title = "J.A.R.V.I.S. (No Memory)"
     page.theme_mode = ft.ThemeMode.DARK
     page.padding = 10
 
     # Title at the top
     title = ft.Text(
-        "J.A.R.V.I.S.",
+        "J.A.R.V.I.S. (No Memory)",
         size=24,
         weight=ft.FontWeight.BOLD,
     )
@@ -77,19 +81,19 @@ def main(page: ft.Page):
         icon=ft.Icons.SEND,
     )
 
-    # Conversation history (for the model)
+    # Conversation history (only in RAM for this run)
     conversation = [
         {
             "role": "system",
             "content": (
                 "You are J.A.R.V.I.S., a precise, technical AI assistant. "
                 "You help with coding, Linux, networking, and general questions. "
-                "Be clear and concise."
+                "Be clear and concise. You do not have long-term memory between sessions."
             ),
         }
     ]
 
-    def add_message(text: str, is_user: bool):
+    def add_message(text, is_user):
         """Add a chat bubble to the UI."""
         color = ft.Colors.BLUE_300 if is_user else ft.Colors.GREY_800
         align = ft.MainAxisAlignment.END if is_user else ft.MainAxisAlignment.START
@@ -120,7 +124,7 @@ def main(page: ft.Page):
         input_box.value = ""
         page.update()
 
-        # Add to conversation history
+        # Add to in‑memory conversation history
         conversation.append({"role": "user", "content": user_text})
 
         # Disable input while thinking
@@ -128,10 +132,10 @@ def main(page: ft.Page):
         send_button.disabled = True
         page.update()
 
-        # Call local Ollama
+        # Send full in‑RAM history (for this run only)
         reply = call_model_api(conversation)
 
-        # Update history and UI with assistant reply
+        # Update history and show assistant reply
         conversation.append({"role": "assistant", "content": reply})
         add_message(reply, is_user=False)
 
