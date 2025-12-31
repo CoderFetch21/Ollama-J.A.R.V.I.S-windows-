@@ -8,7 +8,7 @@ import flet as ft
 # ===================== MEMORY CONFIG =====================
 
 MEMORY_FILE = "jarvis_memory.json"
-MAX_MEMORY_MESSAGES = 60  # keep the last N messages in memory
+MAX_MEMORY_MESSAGES = 60
 
 
 def load_memory():
