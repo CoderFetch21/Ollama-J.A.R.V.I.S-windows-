@@ -16,19 +16,21 @@ Before you install this repository you need to make sure you have the flet and r
   **Instructions**
   Step 1: Download this repository
 
-  Step 2: Run the command in the terminal "pip install requests flet"
+  step 2: go to the microsoft store and search up python and download it
 
-  Step 3: go to ollama.com and install ollama
+  Step 3: Run the command in the terminal "pip install requests flet"
 
-  step 4: go to the microsoft store and search up python and download it
+  Step 4: go to ollama.com and install ollama
 
-  Step 5: Extract the JARVIS file (unzip the .zip)
+  step 5: go to the microsoft store and search up python and download it
 
-  Step 6: run this commands: ollama pull llama3.2
+  Step 6: Extract the JARVIS file (unzip the .zip)
 
-  Step 7: launch a terminal in that folder by right clicking in the folder
+  Step 7: run this commands: ollama pull llama3.2
 
-  Step 8: run the JARVIS file using: python jarvis.py
+  Step 8: launch a terminal in that folder by right clicking in the folder
+
+  Step 9: run the JARVIS file using: python jarvis.py
           or you can use the one with no memory which won't stay after restart (kind of like a temporary chat) by running: python jarvis-no-memory.py
 
   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
